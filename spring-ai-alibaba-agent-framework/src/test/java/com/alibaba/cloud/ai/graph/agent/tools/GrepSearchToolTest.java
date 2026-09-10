@@ -50,10 +50,19 @@ class GrepSearchToolTest {
 	}
 
 	@Test
-	void blankPatternReturnsError() {
-		String result = grepSearchTool.apply(new GrepSearchTool.Request("   ", "/", null, null), toolContext);
+	void emptyPatternReturnsError() {
+		String result = grepSearchTool.apply(new GrepSearchTool.Request("", "/", null, null), toolContext);
 
 		assertEquals("Error: Pattern is required", result);
+	}
+
+	@Test
+	void whitespacePatternSearchesFiles() throws Exception {
+		Files.writeString(tempDir.resolve("example.txt"), "hello world");
+
+		String result = grepSearchTool.apply(new GrepSearchTool.Request(" ", "/", null, null), toolContext);
+
+		assertTrue(result.contains("example.txt"));
 	}
 
 	@Test

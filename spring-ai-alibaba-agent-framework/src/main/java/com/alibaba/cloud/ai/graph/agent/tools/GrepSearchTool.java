@@ -97,7 +97,7 @@ public class GrepSearchTool implements BiFunction<GrepSearchTool.Request, ToolCo
 	@Override
 	public String apply(Request request, ToolContext toolContext) {
 		// Validate regex pattern
-		if (StringUtils.isBlank(request.pattern())) {
+		if (StringUtils.isEmpty(request.pattern())) {
 			return "Error: Pattern is required";
 		}
 		try {
